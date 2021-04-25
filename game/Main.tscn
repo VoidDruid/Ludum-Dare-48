@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Interactible.tscn" type="PackedScene" id=2]
+[ext_resource path="res://TaskDialog.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sprites/map.png" type="Texture" id=4]
+
+[node name="Main" type="Node"]
+
+[node name="map" type="Sprite" parent="."]
+position = Vector2( 481.083, 483 )
+texture = ExtResource( 4 )
+
+[node name="Player" parent="." groups=[
+"Player",
+] instance=ExtResource( 1 )]
+position = Vector2( 208.899, 390.578 )
+
+[node name="Interactible" parent="." groups=[
+"Interactibles",
+] instance=ExtResource( 2 )]
+position = Vector2( 787.378, 208.059 )
+
+[node name="TaskDialog" parent="." instance=ExtResource( 3 )]
+visible = false

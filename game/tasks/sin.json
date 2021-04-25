@@ -1,0 +1,15 @@
+{
+    "type": "algebra",
+    "text": "TEEEEEEXT",
+    "answers": [
+        {
+            "type": "image",
+            "name": "test",
+            "correct": true
+        },
+        {
+            "type": "text",
+            "text": "answer"
+        }
+    ]
+}
