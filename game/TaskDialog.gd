@@ -3,6 +3,9 @@ extends PanelContainer
 export var MAX_BUTTONS_PER_ROW = 2
 export (PackedScene) var answer_button
 var answer_buttons = {}
+var player = null
+var interactible = null
+var task_data = {}
 
 
 func _init():
@@ -14,7 +17,11 @@ func clear():
 		button.queue_free()
 
 
-func activate(player, task_data):
+func activate(interactible_, player_, task_data_):
+	interactible = interactible_
+	player = player_
+	task_data = task_data_
+
 	visible = true
 	get_tree().paused = true
 
@@ -85,8 +92,13 @@ func on_ok_pressed():
 	var selected_button = get_checked_button()
 	if selected_button != null:
 		var answer_data = answer_buttons[selected_button]
-		print(answer_data.get("correct", false))
+		if answer_data.get("correct", false):
+			player.add_coins(task_data["prize"])
+			player.clear_status()
+		else:
+			player.set_status("WRONG")
 
+	interactible.deactivate(player)
 	clear()
 	answer_buttons = {}
 	get_tree().paused = false

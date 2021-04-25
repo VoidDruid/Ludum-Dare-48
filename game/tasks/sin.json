@@ -1,15 +1,25 @@
 {
     "type": "algebra",
-    "text": "TEEEEEEXT",
+    "text": "Текст задачи",
+    "prize": 15,
+    "help_cost": 5,
     "answers": [
         {
-            "type": "image",
-            "name": "test",
+            "type": "text",
+            "text": "-1",
             "correct": true
         },
         {
             "type": "text",
-            "text": "answer"
+            "text": "+1"
+        },
+        {
+            "type": "text",
+            "text": "-2"
+        },
+        {
+            "type": "text",
+            "text": "+2"
         }
     ]
 }

@@ -2,24 +2,13 @@ extends StaticBody2D
 
 export (String) var task;
 var task_dialog;
-
-
-func load_json_file(path):
-	var file = File.new()
-	file.open(path, file.READ)
-	var text = file.get_as_text()
-	var result_json = JSON.parse(text)
-	if result_json.error != OK:
-		print("[load_json_file] Error loading JSON file '" + str(path) + "'.")
-		print("\tError: ", result_json.error)
-		print("\tError Line: ", result_json.error_line)
-		print("\tError String: ", result_json.error_string)
-		return null
-	var obj = result_json.result
-	return obj
+export var is_active = true;
 
 
 func action(player: KinematicBody2D):
+	if not is_active:
+		return
+
 	if task == null or task == "":
 		print("Task not setup!")
 		return
@@ -27,12 +16,22 @@ func action(player: KinematicBody2D):
 	if task_dialog == null:
 		print("TaskDialog not setup!")
 
-	var task_data = load_json_file("res://tasks/" + task + ".json")
+	var task_data = Utils.load_json_file("res://tasks/" + task + ".json")
 	if task_data == null:
 		print("Error loading task " + task)
 		return
 
-	task_dialog.activate(player, task_data)
+	task_dialog.activate(self, player, task_data)
+
+
+func deactivate(player):
+	if player.interactible == self:
+		player.interactible = null
+	is_active = false
+	$Sprite.material = null
+	if ("playing" in $Sprite):
+		$Sprite.playing = false
+		$Sprite.frame = 0
 
 
 func _init():
