@@ -3,6 +3,8 @@ extends KinematicBody2D
 export var speed = 400
 export var boost = 1.6
 export (Material) var outline;
+export (Texture) var success;
+export (Texture) var failure;
 export var coins = 5
 
 var screen_size

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://objects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/Interactible.tscn" type="PackedScene" id=2]
@@ -13,6 +13,10 @@
 [ext_resource path="res://vfx/sprites/items/doors/door2.png" type="Texture" id=11]
 [ext_resource path="res://scripts/Door.gd" type="Script" id=12]
 [ext_resource path="res://vfx/sprites/chemical_substance.png" type="Texture" id=13]
+[ext_resource path="res://vfx/sprites/tablet.png" type="Texture" id=14]
+[ext_resource path="res://vfx/sprites/coin.png" type="Texture" id=15]
+[ext_resource path="res://Win.gd" type="Script" id=16]
+[ext_resource path="res://sfx/success.wav" type="AudioStream" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -41,60 +45,173 @@ animations = [ {
 [node name="TaskDialog" parent="CanvasLayer" instance=ExtResource( 8 )]
 visible = false
 
-[node name="Map" type="Sprite" parent="."]
+[node name="Map" type="Node" parent="."]
+
+[node name="FirstRoom" type="Sprite" parent="Map"]
 position = Vector2( 481.083, 483 )
 texture = ExtResource( 4 )
 
-[node name="Walls" type="Node" parent="Map"]
+[node name="Walls" type="Node" parent="Map/FirstRoom"]
 
-[node name="Wall" type="StaticBody2D" parent="Map/Walls"]
+[node name="Wall" type="StaticBody2D" parent="Map/FirstRoom/Walls"]
 position = Vector2( 478.336, 72 )
 scale = Vector2( 48.6138, 2.58642 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Walls/Wall"]
 shape = SubResource( 1 )
 
-[node name="Wall2" type="StaticBody2D" parent="Map/Walls"]
+[node name="Wall2" type="StaticBody2D" parent="Map/FirstRoom/Walls"]
 position = Vector2( 175.336, 865.844 )
 scale = Vector2( 21.4202, -9.83057 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Walls/Wall2"]
 shape = SubResource( 1 )
 
-[node name="Wall3" type="StaticBody2D" parent="Map/Walls"]
+[node name="Wall3" type="StaticBody2D" parent="Map/FirstRoom/Walls"]
 position = Vector2( 875, 923.17 )
 scale = Vector2( 10.1587, -4.90309 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Walls/Wall3"]
 shape = SubResource( 1 )
 
-[node name="Wall4" type="StaticBody2D" parent="Map/Walls"]
+[node name="Wall4" type="StaticBody2D" parent="Map/FirstRoom/Walls"]
 position = Vector2( 48.1933, 458.088 )
 scale = Vector2( 4.85388, -38.2307 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Walls/Wall4"]
 shape = SubResource( 1 )
 
-[node name="Wall5" type="StaticBody2D" parent="Map/Walls"]
+[node name="Wall5" type="StaticBody2D" parent="Map/FirstRoom/Walls"]
 position = Vector2( 1005, 483 )
 scale = Vector2( 4.85388, -38.2307 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Walls/Wall5"]
 shape = SubResource( 1 )
 
-[node name="Wall6" type="StaticBody2D" parent="Map/Walls"]
+[node name="Wall6" type="StaticBody2D" parent="Map/FirstRoom/Walls"]
 position = Vector2( 136, 192 )
 scale = Vector2( 5.95582, -10.3677 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall6"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Walls/Wall6"]
 shape = SubResource( 1 )
 
-[node name="Wall7" type="StaticBody2D" parent="Map/Walls"]
+[node name="Wall7" type="StaticBody2D" parent="Map/FirstRoom/Walls"]
 position = Vector2( 240, 128 )
 scale = Vector2( 14.8279, -6.77359 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall7"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Walls/Wall7"]
 shape = SubResource( 1 )
+
+[node name="Items" type="Node" parent="Map/FirstRoom"]
+
+[node name="Computer" parent="Map/FirstRoom/Items" groups=[
+"Interactibles",
+] instance=ExtResource( 2 )]
+position = Vector2( 787.378, 208.059 )
+
+[node name="Wire" type="StaticBody2D" parent="Map/FirstRoom/Items"]
+position = Vector2( 304.858, 145.487 )
+script = ExtResource( 3 )
+task = "sparks"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Items/Wire"]
+scale = Vector2( 12, 12 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="AnimatedSprite" parent="Map/FirstRoom/Items/Wire"]
+frames = ExtResource( 6 )
+playing = true
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Map/FirstRoom/Items/Wire"]
+position = Vector2( 0, 1.90735e-06 )
+scale = Vector2( 6.12, 5.415 )
+
+[node name="Trigger" type="Area2D" parent="Map/FirstRoom/Items/Wire"]
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Map/FirstRoom/Items/Wire/Trigger"]
+shape = SubResource( 3 )
+
+[node name="Chemical" type="StaticBody2D" parent="Map/FirstRoom/Items"]
+position = Vector2( 854.819, 713.381 )
+script = ExtResource( 3 )
+task = "chemicals"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Items/Chemical"]
+scale = Vector2( 12, 12 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Map/FirstRoom/Items/Chemical"]
+texture = ExtResource( 13 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Map/FirstRoom/Items/Chemical"]
+position = Vector2( 0, 1.90735e-06 )
+scale = Vector2( 6.12, 5.415 )
+
+[node name="Trigger" type="Area2D" parent="Map/FirstRoom/Items/Chemical"]
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Map/FirstRoom/Items/Chemical/Trigger"]
+shape = SubResource( 3 )
+
+[node name="Area" type="StaticBody2D" parent="Map/FirstRoom/Items"]
+position = Vector2( 240, 824 )
+script = ExtResource( 3 )
+task = "area"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Items/Area"]
+scale = Vector2( 12, 12 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Map/FirstRoom/Items/Area"]
+texture = ExtResource( 14 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Map/FirstRoom/Items/Area"]
+position = Vector2( 0, 1.90735e-06 )
+scale = Vector2( 6.12, 5.415 )
+
+[node name="Trigger" type="Area2D" parent="Map/FirstRoom/Items/Area"]
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Map/FirstRoom/Items/Area/Trigger"]
+shape = SubResource( 3 )
+
+[node name="Door" type="StaticBody2D" parent="Map/FirstRoom/Items"]
+position = Vector2( 580.945, 865.844 )
+scale = Vector2( 4, 2.04 )
+script = ExtResource( 12 )
+config_path = "basic"
+
+[node name="Sprite" type="AnimatedSprite" parent="Map/FirstRoom/Items/Door"]
+frames = SubResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/FirstRoom/Items/Door"]
+position = Vector2( -0.783585, 42.5181 )
+scale = Vector2( -4.71036, -0.616888 )
+shape = SubResource( 5 )
+
+[node name="Trigger" type="Area2D" parent="Map/FirstRoom/Items/Door"]
+position = Vector2( 0, 16.7774 )
+scale = Vector2( 0.420095, 0.324684 )
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Map/FirstRoom/Items/Door/Trigger"]
+shape = SubResource( 3 )
+
+[node name="Win" type="StaticBody2D" parent="Map/FirstRoom/Items"]
+position = Vector2( 576, 1056 )
+scale = Vector2( 1.88, 2.16 )
+script = ExtResource( 16 )
+
+[node name="Sprite" type="Sprite" parent="Map/FirstRoom/Items/Win"]
+position = Vector2( -2.00002, 15.6862 )
+texture = ExtResource( 15 )
+
+[node name="Trigger" type="Area2D" parent="Map/FirstRoom/Items/Win"]
+position = Vector2( 0, 16.7774 )
+scale = Vector2( 0.420095, 0.324684 )
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Map/FirstRoom/Items/Win/Trigger"]
+shape = SubResource( 3 )
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="Map/FirstRoom/Items/Win"]
+stream = ExtResource( 17 )
 
 [node name="Player" parent="." groups=[
 "Player",
@@ -102,73 +219,3 @@ shape = SubResource( 1 )
 position = Vector2( 208.899, 390.578 )
 boost = 2.0
 coins = 0
-
-[node name="Computer" parent="." groups=[
-"Interactibles",
-] instance=ExtResource( 2 )]
-position = Vector2( 787.378, 208.059 )
-
-[node name="Wire" type="StaticBody2D" parent="."]
-position = Vector2( 304.858, 145.487 )
-script = ExtResource( 3 )
-task = "sin"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wire"]
-scale = Vector2( 12, 12 )
-shape = SubResource( 2 )
-
-[node name="Sprite" type="AnimatedSprite" parent="Wire"]
-frames = ExtResource( 6 )
-frame = 4
-playing = true
-
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Wire"]
-position = Vector2( 0, 1.90735e-06 )
-scale = Vector2( 6.12, 5.415 )
-
-[node name="Trigger" type="Area2D" parent="Wire"]
-
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Wire/Trigger"]
-shape = SubResource( 3 )
-
-[node name="Chemical" type="StaticBody2D" parent="."]
-position = Vector2( 854.819, 713.381 )
-script = ExtResource( 3 )
-task = "chemicals"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Chemical"]
-scale = Vector2( 12, 12 )
-shape = SubResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="Chemical"]
-texture = ExtResource( 13 )
-
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Chemical"]
-position = Vector2( 0, 1.90735e-06 )
-scale = Vector2( 6.12, 5.415 )
-
-[node name="Trigger" type="Area2D" parent="Chemical"]
-
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Chemical/Trigger"]
-shape = SubResource( 3 )
-
-[node name="Door" type="StaticBody2D" parent="."]
-position = Vector2( 580.945, 865.844 )
-scale = Vector2( 4, 2.04 )
-script = ExtResource( 12 )
-config_path = "basic"
-
-[node name="Sprite" type="AnimatedSprite" parent="Door"]
-frames = SubResource( 4 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
-position = Vector2( -0.783585, 42.5181 )
-scale = Vector2( -4.71036, -0.616888 )
-shape = SubResource( 5 )
-
-[node name="Trigger" type="Area2D" parent="Door"]
-position = Vector2( 0, 16.7774 )
-scale = Vector2( 0.420095, 0.324684 )
-
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Door/Trigger"]
-shape = SubResource( 3 )

@@ -2,14 +2,22 @@ extends PanelContainer
 
 export var MAX_BUTTONS_PER_ROW = 2
 export (PackedScene) var answer_button
+export (AudioStream) var activate
+export (AudioStream) var failure
+export (AudioStream) var success
 var answer_buttons = {}
 var player = null
 var interactible = null
 var task_data = {}
+var audio_player
 
 
 func _init():
 	add_to_group("TaskDialog")
+
+
+func _ready():
+	audio_player = $Notify
 
 
 func clear():
@@ -20,6 +28,9 @@ func clear():
 
 
 func activate(interactible_, player_, task_data_):
+	audio_player.stream = activate
+	audio_player.playing = true
+
 	interactible = interactible_
 	player = player_
 	task_data = task_data_
@@ -95,11 +106,24 @@ func on_ok_pressed():
 	if selected_button != null:
 		deactivate = true
 		var answer_data = answer_buttons[selected_button]
+		var sprite = interactible.get_node("Sprite")
+		if "animation" in sprite:
+			var old_sprite = sprite
+			sprite = Sprite.new()
+			interactible.add_child(sprite)
+			sprite.position = old_sprite.position
+			old_sprite.queue_free()
 		if answer_data.get("correct", false):
 			player.add_coins(task_data["prize"])
-			player.clear_status()
+			sprite.texture = player.success
+			audio_player.stream = success
+			audio_player.playing = true
 		else:
-			player.set_status("WRONG")
+			audio_player.stream = failure
+			audio_player.playing = true
+			sprite.texture = player.failure
+		sprite.scale.x = 2
+		sprite.scale.y = 2
 
 	if deactivate:
 		interactible.deactivate(player, true)
