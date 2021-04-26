@@ -1,25 +1,25 @@
 [gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Interactible.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Interactible.gd" type="Script" id=3]
-[ext_resource path="res://sprites/map.png" type="Texture" id=4]
-[ext_resource path="res://Overlay.tscn" type="PackedScene" id=5]
-[ext_resource path="res://sprites/items/wire/wire.tres" type="SpriteFrames" id=6]
-[ext_resource path="res://sprites/items/doors/door3.png" type="Texture" id=7]
-[ext_resource path="res://TaskDialog.tscn" type="PackedScene" id=8]
-[ext_resource path="res://sprites/items/doors/door.png" type="Texture" id=9]
-[ext_resource path="res://sprites/items/doors/door1.png" type="Texture" id=10]
-[ext_resource path="res://sprites/items/doors/door2.png" type="Texture" id=11]
-[ext_resource path="res://Door.gd" type="Script" id=12]
-[ext_resource path="res://sprites/chemical_substance.png" type="Texture" id=13]
+[ext_resource path="res://objects/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Interactible.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/Interactible.gd" type="Script" id=3]
+[ext_resource path="res://vfx/sprites/map.png" type="Texture" id=4]
+[ext_resource path="res://ui/Overlay.tscn" type="PackedScene" id=5]
+[ext_resource path="res://vfx/sprites/items/wire/wire.tres" type="SpriteFrames" id=6]
+[ext_resource path="res://vfx/sprites/items/doors/door3.png" type="Texture" id=7]
+[ext_resource path="res://ui/TaskDialog.tscn" type="PackedScene" id=8]
+[ext_resource path="res://vfx/sprites/items/doors/door.png" type="Texture" id=9]
+[ext_resource path="res://vfx/sprites/items/doors/door1.png" type="Texture" id=10]
+[ext_resource path="res://vfx/sprites/items/doors/door2.png" type="Texture" id=11]
+[ext_resource path="res://scripts/Door.gd" type="Script" id=12]
+[ext_resource path="res://vfx/sprites/chemical_substance.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 4.4648, 4.16054 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 116.097, 97.1422 )
 
 [sub_resource type="SpriteFrames" id=4]
@@ -33,6 +33,13 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=5]
 
 [node name="Main" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Overlay" parent="CanvasLayer" instance=ExtResource( 5 )]
+
+[node name="TaskDialog" parent="CanvasLayer" instance=ExtResource( 8 )]
+visible = false
 
 [node name="Map" type="Sprite" parent="."]
 position = Vector2( 481.083, 483 )
@@ -75,12 +82,26 @@ scale = Vector2( 4.85388, -38.2307 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall5"]
 shape = SubResource( 1 )
 
+[node name="Wall6" type="StaticBody2D" parent="Map/Walls"]
+position = Vector2( 136, 192 )
+scale = Vector2( 5.95582, -10.3677 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall6"]
+shape = SubResource( 1 )
+
+[node name="Wall7" type="StaticBody2D" parent="Map/Walls"]
+position = Vector2( 240, 128 )
+scale = Vector2( 14.8279, -6.77359 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Walls/Wall7"]
+shape = SubResource( 1 )
+
 [node name="Player" parent="." groups=[
 "Player",
 ] instance=ExtResource( 1 )]
 position = Vector2( 208.899, 390.578 )
 boost = 2.0
-coins = 5
+coins = 0
 
 [node name="Computer" parent="." groups=[
 "Interactibles",
@@ -94,11 +115,11 @@ task = "sin"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wire"]
 scale = Vector2( 12, 12 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="Wire"]
 frames = ExtResource( 6 )
-frame = 3
+frame = 4
 playing = true
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Wire"]
@@ -108,7 +129,7 @@ scale = Vector2( 6.12, 5.415 )
 [node name="Trigger" type="Area2D" parent="Wire"]
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="Wire/Trigger"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Chemical" type="StaticBody2D" parent="."]
 position = Vector2( 854.819, 713.381 )
@@ -117,7 +138,7 @@ task = "chemicals"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chemical"]
 scale = Vector2( 12, 12 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="Chemical"]
 texture = ExtResource( 13 )
@@ -129,14 +150,7 @@ scale = Vector2( 6.12, 5.415 )
 [node name="Trigger" type="Area2D" parent="Chemical"]
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="Chemical/Trigger"]
-shape = SubResource( 2 )
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Overlay" parent="CanvasLayer" instance=ExtResource( 5 )]
-
-[node name="TaskDialog" parent="CanvasLayer" instance=ExtResource( 8 )]
-visible = false
+shape = SubResource( 3 )
 
 [node name="Door" type="StaticBody2D" parent="."]
 position = Vector2( 580.945, 865.844 )
@@ -157,4 +171,4 @@ position = Vector2( 0, 16.7774 )
 scale = Vector2( 0.420095, 0.324684 )
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="Door/Trigger"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )

@@ -1,0 +1,174 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/TaskDialog.gd" type="Script" id=1]
+[ext_resource path="res://ui/resources/stripes.png" type="Texture" id=2]
+[ext_resource path="res://common/fonts/Prosto_One/ProstoOne.tres" type="DynamicFont" id=3]
+[ext_resource path="res://common/fonts/Xolonium/HeadlineFont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://ui/AnswerButton.tscn" type="PackedScene" id=5]
+
+[node name="TaskDialog" type="PanelContainer"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -450.0
+margin_top = -210.0
+margin_right = 450.0
+margin_bottom = 210.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+answer_button = ExtResource( 5 )
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 893.0
+margin_bottom = 413.0
+
+[node name="HBoxHeadlineContainer" type="HBoxContainer" parent="VBox"]
+margin_right = 886.0
+margin_bottom = 45.0
+
+[node name="Headline" type="Label" parent="VBox/HBoxHeadlineContainer"]
+margin_right = 68.0
+margin_bottom = 45.0
+size_flags_vertical = 5
+custom_fonts/font = ExtResource( 4 )
+text = "Task"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBox/HBoxHeadlineContainer"]
+margin_left = 72.0
+margin_right = 873.0
+margin_bottom = 45.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 430
+custom_constants/margin_bottom = 0
+
+[node name="TextureRect" type="TextureRect" parent="VBox/HBoxHeadlineContainer/MarginContainer"]
+margin_left = 430.0
+margin_right = 801.0
+margin_bottom = 45.0
+texture = ExtResource( 2 )
+stretch_mode = 6
+
+[node name="TaskTextContainer" type="MarginContainer" parent="VBox"]
+margin_top = 49.0
+margin_right = 886.0
+margin_bottom = 205.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 5
+
+[node name="TaskText" type="Label" parent="VBox/TaskTextContainer"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 866.0
+margin_bottom = 151.0
+custom_fonts/font = ExtResource( 3 )
+text = "adsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassdsadasdadsdassds"
+autowrap = true
+
+[node name="TaskImageContainer" type="MarginContainer" parent="VBox"]
+margin_top = 209.0
+margin_right = 886.0
+margin_bottom = 224.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 5
+
+[node name="TaskImage" type="TextureRect" parent="VBox/TaskImageContainer"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 866.0
+margin_bottom = 10.0
+
+[node name="AnswersContainer" type="MarginContainer" parent="VBox"]
+margin_top = 228.0
+margin_right = 886.0
+margin_bottom = 252.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 15
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="VBox/AnswersContainer"]
+margin_left = 20.0
+margin_top = 15.0
+margin_right = 866.0
+margin_bottom = 19.0
+
+[node name="AnswersFirstLine" type="MarginContainer" parent="VBox/AnswersContainer/VBox"]
+margin_right = 846.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 0
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 0
+
+[node name="HBox" type="HBoxContainer" parent="VBox/AnswersContainer/VBox/AnswersFirstLine"]
+margin_left = 20.0
+margin_right = 826.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="AnswersSecondLine" type="MarginContainer" parent="VBox/AnswersContainer/VBox"]
+margin_top = 4.0
+margin_right = 846.0
+margin_bottom = 4.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 0
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 0
+
+[node name="HBox" type="HBoxContainer" parent="VBox/AnswersContainer/VBox/AnswersSecondLine"]
+margin_left = 20.0
+margin_right = 826.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBox"]
+margin_top = 256.0
+margin_right = 886.0
+margin_bottom = 406.0
+size_flags_vertical = 3
+alignment = 2
+
+[node name="ControlsContainer" type="MarginContainer" parent="VBox/VBoxContainer"]
+margin_top = 105.0
+margin_right = 886.0
+margin_bottom = 150.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 0
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="VBox/VBoxContainer/ControlsContainer"]
+margin_left = 20.0
+margin_right = 866.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 0, 35 )
+custom_constants/separation = 33
+alignment = 2
+
+[node name="Help" type="Button" parent="VBox/VBoxContainer/ControlsContainer/HBox"]
+margin_left = 673.0
+margin_right = 753.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 80, 0 )
+text = "Help"
+
+[node name="Ok" type="Button" parent="VBox/VBoxContainer/ControlsContainer/HBox"]
+margin_left = 786.0
+margin_right = 846.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 60, 0 )
+text = "OK"
+[connection signal="pressed" from="VBox/VBoxContainer/ControlsContainer/HBox/Help" to="." method="on_help_pressed"]
+[connection signal="pressed" from="VBox/VBoxContainer/ControlsContainer/HBox/Ok" to="." method="on_ok_pressed"]

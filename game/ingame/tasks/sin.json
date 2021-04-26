@@ -1,0 +1,26 @@
+{
+    "type": "algebra",
+    "text": "Текст задачи",
+    "image": "answers/test",
+    "prize": 15,
+    "help_cost": 5,
+    "answers": [
+        {
+            "type": "text",
+            "text": "-1",
+            "correct": true
+        },
+        {
+            "type": "text",
+            "text": "+1"
+        },
+        {
+            "type": "text",
+            "text": "-2"
+        },
+        {
+            "type": "text",
+            "text": "+2"
+        }
+    ]
+}

@@ -20,7 +20,7 @@ run/main_scene="res://Main.tscn"
 
 [autoload]
 
-Utils="*res://Utils.gd"
+Utils="*res://scripts/Utils.gd"
 
 [input]
 

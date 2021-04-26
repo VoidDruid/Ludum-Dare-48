@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://vfx/sprites/player/PlayerAnimation.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=5]
+[ext_resource path="res://vfx/materials/outline.tres" type="Material" id=13]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 24.5311
+height = 21.3538
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+speed = 200
+outline = ExtResource( 13 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = ExtResource( 1 )
+animation = "up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true

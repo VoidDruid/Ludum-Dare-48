@@ -1,0 +1,11 @@
+{
+    "OFL.txt": {
+        "fonts": ["Prosto_One", "Xolonium"]
+    },
+    "Apache 2.0.txt": {
+        "fonts": ["OpenSans"]
+    },
+    "Kenney License.txt": {
+        "kenney_rtssci-fi": "https://kenney.nl/assets/sci-fi-rts"
+    }
+}
